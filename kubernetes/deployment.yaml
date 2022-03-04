@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pushtify-deployment
+  namespace: notify
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: pushtify
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: pushtify
+    spec:
+      containers:
+      - env:
+        - name: TZ
+          value: "Europe/Brussels"
+        - name: GOTIFY_TOKEN
+          value: "xyz"
+        - name: GOTIFY_HOST
+          value: "gotify.example.com"
+        - name: PUSHOVER_USERKEY
+          value: "abcdef"
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pgrep -f pushtify-listener
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        image: sebastienw/pushtify:v0.5
+        imagePullPolicy: IfNotPresent
+        name: notify
+        resources: {}
+        securityContext:
+          capabilities: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
