@@ -20,5 +20,5 @@ Build the container image locally:
 
 ```bash
 git clone https://github.com/sebw/pushtify
-docker build -t pushtify:v.04 .
+docker build -t pushtify:v0.5 .
 ```
