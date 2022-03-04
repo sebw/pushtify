@@ -1,12 +1,12 @@
 # Pushtify
 
-Capture Gotify notifications and forward them to Pushover.
+I created this container because I moved from Android to iPhone and didn't want to reconfigure the couple dozen applications that were using Gotify to something else.
 
-I created this container because I moved from Android to iPhone and didn't want to reconfigure the couple dozen applications that were using Gotify.
+The something else is Pushover in my case. It's not open source, it's not free, but it's been around for a very long time.
 
-The container listens to Gotify's websocket and captures notifications and pass then to Pushover using ntfy.
+This container listens for Gotify notifications through websocket and passes them over to Pushover using ntfy.
 
-Requirement:
+Requirements:
 
 - a client token in Gotify
 - gotify hostname
@@ -16,7 +16,7 @@ Notes:
 
 - if deployed in Kubernetes, the pod will restart in case of connection loss with Gotify
 
-Built the container image locally:
+Build the container image locally:
 
 ```bash
 git clone https://github.com/sebw/pushtify
