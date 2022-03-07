@@ -1,10 +1,17 @@
 # Pushtify
 
-I created this container image because I moved from Android to iPhone and didn't want to reconfigure the couple dozen applications that were using Gotify to something else.
+Gotify to Pushover forwarder:
 
-The something else is Pushover in my case. It's not open source, it's not free, but it's been around for a very long time.
+- Gotify: a self hosted Open Source notification system, with an Android app.
+- Pushover: a PaaS closed source notification system. Available on iOS and Android.
 
-This container listens for Gotify notifications through websocket and passes them over to Pushover using ntfy.
+## Why this container image
+
+Because I moved from Android to iPhone and didn't want to migrate about 20 applications from Gotify to another system that would be iOS compatible. The other system in my case if Pushover.
+
+## How does it work
+
+This container listens for Gotify notifications through websocket and passes them over to Pushover. It uses the `ntfy` Python library.
 
 ## Requirements
 
