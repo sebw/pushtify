@@ -7,11 +7,11 @@ Gotify to Pushover forwarder:
 
 ## Why this container image
 
-Because I moved from Android to iPhone and didn't want to migrate about 20 applications from Gotify to another system that would be iOS compatible. The other system in my case if Pushover.
+Because I moved from Android to iPhone and didn't want to migrate about 20 applications from Gotify to another system that would be iOS compatible. The other system in my case is Pushover.
 
 ## How does it work
 
-This container listens for Gotify notifications through websocket and passes them over to Pushover. It uses the `ntfy` Python library.
+This container listens for Gotify notifications through websocket and passes them over to Pushover. It uses the `ntfy` Python library to forward the messages.
 
 ## Requirements
 
@@ -37,7 +37,7 @@ vim deployment.yaml (edit your variables, ideally store them as k8s secrets)
 kubectl apply -f deployment.yaml
 ```
 
-The liveness probe will restart the pod if connection to Gotify is lost.
+If connection to Gotify websocket is lost, the Python script will stop and the liveness probe will restart the pod.
 
 ### Run with Podman
 
