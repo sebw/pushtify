@@ -7,28 +7,34 @@ Gotify to Pushover forwarder:
 
 ## Why this container image
 
-Because I moved from Android to iPhone and didn't want to migrate about 20 applications from Gotify to another system that would be iOS compatible. The other system in my case is Pushover.
+Because I moved from Android to iPhone.
 
-## How does it work
+I run about 20 applications that notify Gotify on a daily basis.
 
-This container listens for Gotify notifications through websocket and passes them over to Pushover. It uses the `ntfy` Python library to forward the messages.
+I didn't want to reconfigure all of those to notify on a new iOS compatible notification system (here Pushover).
+
+## How it works
+
+This container constantly listens for Gotify notifications through websocket and forwards received notifications to Pushover. 
+
+It uses the `ntfy` Python library to forward messages.
 
 ## Requirements
 
 - a client token in Gotify
-- gotify hostname
-- pushover user key
+- the gotify hostname
+- a pushover user key
 
 ## Notes
 
-### Build the container image locally
+### Building the container image locally
 
 ```bash
 git clone https://github.com/sebw/pushtify
 docker build -t pushtify:v0.5 .
 ```
 
-### Run on Kubernetes
+### Running on Kubernetes
 
 ```bash
 git clone https://github.com/sebw/pushtify
@@ -39,7 +45,7 @@ kubectl apply -f deployment.yaml
 
 If connection to Gotify websocket is lost, the Python script will stop and the liveness probe will restart the pod.
 
-### Run with Podman
+### Running with Podman (or Docker)
 
 ```bash
 podman run --name pushtify -e GOTIFY_TOKEN=zzz -e GOTIFY_HOST=gotify.example.org -e PUSHOVER_USERKEY=xxx ghcr.io/sebw/pushtify:v0.5
