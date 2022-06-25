@@ -38,7 +38,7 @@ spec:
             - pgrep -f pushtify-listener
           initialDelaySeconds: 10
           periodSeconds: 10
-        image: sebastienw/pushtify:v0.5
+        image: ghcr.io/sebw/pushtify:v0.5
         imagePullPolicy: IfNotPresent
         name: notify
         resources: {}
