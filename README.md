@@ -42,5 +42,5 @@ If connection to Gotify websocket is lost, the Python script will stop and the l
 ### Run with Podman
 
 ```bash
-podman run --name pushtify -e GOTIFY_TOKEN=zzz -e GOTIFY_HOST=gotify.example.org -e PUSHOVER_USERKEY=xxx docker.io/sebastienw/pushtify:v0.5
+podman run --name pushtify -e GOTIFY_TOKEN=zzz -e GOTIFY_HOST=gotify.example.org -e PUSHOVER_USERKEY=xxx ghcr.io/sebw/pushtify:v0.5
 ```
