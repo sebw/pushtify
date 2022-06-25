@@ -43,7 +43,7 @@ vim deployment.yaml (edit your variables, ideally store them as k8s secrets)
 kubectl apply -f deployment.yaml
 ```
 
-If connection to Gotify websocket is lost, the Python script will stop and the liveness probe will restart the pod.
+If connection to Gotify websocket is lost, the Python script will stop and the liveness probe will fail, triggering a restart of the pod.
 
 ### Running with Podman (or Docker)
 
