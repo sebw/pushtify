@@ -31,6 +31,7 @@ It uses the `ntfy` Python library to forward messages.
 
 ```bash
 git clone https://github.com/sebw/pushtify
+cd pushtify
 docker build -t pushtify:v0.5 .
 ```
 
@@ -38,7 +39,7 @@ docker build -t pushtify:v0.5 .
 
 ```bash
 git clone https://github.com/sebw/pushtify
-cd kubernetes
+cd pushtify/kubernetes
 vim deployment.yaml (edit your variables, ideally store them as k8s secrets)
 kubectl apply -f deployment.yaml
 ```
