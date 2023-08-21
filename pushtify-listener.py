@@ -22,7 +22,7 @@ def on_open(ws):
     print("Opened connection")
 
 if __name__ == "__main__":
-    wsapp = websocket.WebSocketApp("ws://" + str(gotify_host) + "/stream", header={"X-Gotify-Key": str(gotify_token)},
+    wsapp = websocket.WebSocketApp("wss://" + str(gotify_host) + "/stream", header={"X-Gotify-Key": str(gotify_token)},
                               on_open=on_open,
                               on_message=on_message,
                               on_error=on_error,
