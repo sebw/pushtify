@@ -7,7 +7,7 @@ Pushtify is a Gotify to Pushover forwarder:
 
 ## Why this container image?
 
-When I moved from Android to iOS, I was just too lazy to reconfigure the dozens of apps that were sending notificaiton to my Gotify instance.
+When I moved from Android to iOS, I was just too lazy to reconfigure the multiple dozens of apps that were sending notifications to my Gotify instance.
 
 ## How it works
 
