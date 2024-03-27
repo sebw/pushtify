@@ -28,11 +28,19 @@ If the connection to Gotify is lost, the container will reinitiate the connectio
 ## Installation with Docker or Podman
 
 ```bash
-docker run --name pushtify -e GOTIFY_TOKEN=zzz -e GOTIFY_HOST=gotify.example.org -e PUSHOVER_USERKEY=xxx ghcr.io/sebw/pushtify:latest
+docker run --name pushtify \
+  -e GOTIFY_TOKEN=zzz \
+  -e GOTIFY_HOST=gotify.example.org \
+  -e PUSHOVER_USERKEY=xxx \
+  ghcr.io/sebw/pushtify:latest
 ```
 
 ```bash
-podman run --name pushtify -e GOTIFY_TOKEN=zzz -e GOTIFY_HOST=gotify.example.org -e PUSHOVER_USERKEY=xxx ghcr.io/sebw/pushtify:latest
+podman run --name pushtify \
+  -e GOTIFY_TOKEN=zzz \
+  -e GOTIFY_HOST=gotify.example.org \
+  -e PUSHOVER_USERKEY=xxx \
+  ghcr.io/sebw/pushtify:latest
 ```
 
 ## Building the container image yourself
