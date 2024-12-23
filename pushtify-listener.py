@@ -7,6 +7,14 @@ pushover_userkey = os.environ['PUSHOVER_USERKEY']
 gotify_host = os.environ['GOTIFY_HOST']
 gotify_token = os.environ['GOTIFY_TOKEN']
 
+if 'GOTIFY_PROTOCOL' not in os.environ:
+    websocket_protocol = 'wss'
+else:
+    if os.environ['GOTIFY_PROTOCOL'] == "http":
+        websocket_protocol = 'ws'
+    elif os.environ['GOTIFY_PROTOCOL'] == "https":
+        websocket_protocol = 'wss'
+
 def on_message(ws, message):
     print(message)
     msg = json.loads(message)
@@ -22,7 +30,7 @@ def on_open(ws):
     print("Opened connection")
 
 if __name__ == "__main__":
-    wsapp = websocket.WebSocketApp("wss://" + str(gotify_host) + "/stream", header={"X-Gotify-Key": str(gotify_token)},
+    wsapp = websocket.WebSocketApp(str(websocket_protocol) + "://" + str(gotify_host) + "/stream", header={"X-Gotify-Key": str(gotify_token)},
                               on_open=on_open,
                               on_message=on_message,
                               on_error=on_error,

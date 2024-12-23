@@ -31,6 +31,7 @@ If the connection to Gotify is lost, the container will reinitiate the connectio
 docker run --name pushtify \
   -e GOTIFY_TOKEN=zzz \
   -e GOTIFY_HOST=gotify.example.org \
+  -e GOTIFY_PROTOCOL=https \
   -e PUSHOVER_USERKEY=xxx \
   ghcr.io/sebw/pushtify:latest
 ```
@@ -39,9 +40,12 @@ docker run --name pushtify \
 podman run --name pushtify \
   -e GOTIFY_TOKEN=zzz \
   -e GOTIFY_HOST=gotify.example.org \
+  -e GOTIFY_PROTOCOL=https \
   -e PUSHOVER_USERKEY=xxx \
   ghcr.io/sebw/pushtify:latest
 ```
+
+If `GOTIFY_PROTOCOL` is not defined, HTTPS is assumed.
 
 ## Building the container image yourself
 
