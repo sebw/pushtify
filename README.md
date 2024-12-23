@@ -65,3 +65,16 @@ kubectl apply -f deployment.yaml
 ```
 
 If connection to Gotify websocket is lost, the Python script will stop and the liveness probe will fail, triggering a restart of the pod.
+
+## Message Priorities
+
+Gotify and Pushover implement priorities.
+
+I took the liberty to map priorities in such a way:
+
+| Gotify Behavior | Gotify Priority | Pushover Priority | Pushover Behavior |
+|- |-| -|-|
+| No notification | 0 | -1| Low priority|
+| Icon in notification bar | 1 - 3 | 0 | Normal priority| 
+| Icon in notification bar + Sound | 4 - 7 | 1 | High Priority |
+| Icon in notification bar + Sound + Vibration | 8 - 10 | 2| Emergency priority|

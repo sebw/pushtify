@@ -18,7 +18,15 @@ else:
 def on_message(ws, message):
     print(message)
     msg = json.loads(message)
-    ntfy.notify(msg['message'],msg['title'], backend='pushover', user_key=pushover_userkey)
+    if msg['priority'] == 0:
+        pushover_prio = "-1"
+    elif 1 <= msg['priority'] <= 3:
+        pushover_prio = "0"
+    elif 4 <= msg['priority'] <= 7:
+        pushover_prio = "1"
+    elif msg['priority'] > 7:
+        pushover_prio = "2"
+    ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey)
 
 def on_error(ws, error):
     print(error)
