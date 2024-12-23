@@ -16,7 +16,6 @@ else:
         websocket_protocol = 'wss'
 
 def on_message(ws, message):
-    print(message)
     msg = json.loads(message)
     if msg['priority'] == 0:
         pushover_prio = "-1"
@@ -32,10 +31,10 @@ def on_error(ws, error):
     print(error)
 
 def on_close(ws, close_status_code, close_msg):
-    print("### closed ###")
+    print("### closed connection ###")
 
 def on_open(ws):
-    print("Opened connection")
+    print("### opening connection ###")
 
 if __name__ == "__main__":
     wsapp = websocket.WebSocketApp(str(websocket_protocol) + "://" + str(gotify_host) + "/stream", header={"X-Gotify-Key": str(gotify_token)},
