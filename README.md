@@ -47,6 +47,33 @@ podman run --name pushtify \
 
 If `GOTIFY_PROTOCOL` is not defined, HTTPS is assumed.
 
+## Mapping Gotify Apps to Pushover Apps
+
+By default with the example above, all Gotify messages will be forwarded to the "main" Pushover messages stream.
+
+It is somehow possible to forward messages from a specific Gotify App to a specific Pushover app.
+
+First of all, you need to grab the "app ID" of your app in Gotify.
+
+In the left menu in Gotify click on your app, the URL will show `https://gotify/#/messages/55`.
+
+`55` is the app ID.
+
+You can now run Pushtify by passing your app ID's with the following:
+
+```bash
+docker run --name pushtify \
+  -e GOTIFY_TOKEN=zzz \
+  -e GOTIFY_HOST=gotify.example.org \
+  -e GOTIFY_PROTOCOL=https \
+  -e PUSHOVER_USERKEY=xxx \
+  -e GOTIFY_APPID_55=your_pushover_api_token \
+  -e GOTIFY_APPID_12=your_other_pushover_api_token \
+  ghcr.io/sebw/pushtify:latest
+```
+
+Gotify messages that don't match any ID will be forwarded to the "root" Pushover message stream.
+
 ## Building the container image yourself
 
 ```bash
