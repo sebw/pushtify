@@ -59,7 +59,7 @@ In the left menu in Gotify click on your app, the URL will show `https://gotify/
 
 `55` is the app ID.
 
-You can now run Pushtify with the following:
+You can now run Pushtify by passing your app ID's with the following:
 
 ```bash
 docker run --name pushtify \
@@ -68,8 +68,11 @@ docker run --name pushtify \
   -e GOTIFY_PROTOCOL=https \
   -e PUSHOVER_USERKEY=xxx \
   -e GOTIFY_APPID_55=your_pushover_api_token \
+  -e GOTIFY_APPID_12=your_other_pushover_api_token \
   ghcr.io/sebw/pushtify:latest
 ```
+
+Gotify messages that don't match any ID will be forwarded to the "root" Pushover message stream.
 
 ## Building the container image yourself
 
