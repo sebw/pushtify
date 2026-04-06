@@ -7,6 +7,11 @@ pushover_userkey = os.environ['PUSHOVER_USERKEY']
 gotify_host = os.environ['GOTIFY_HOST']
 gotify_token = os.environ['GOTIFY_TOKEN']
 
+# Gotify APPIDXX can be used to direct to a specific Pushover app
+# You need to set an environment variable GOTIFY_APPID_XX with the desired pushover API token
+# If no variable is found for the appid, message will be forwarded to the main pushover stream
+appid_vars = {key: value for key, value in os.environ.items() if key.startswith("GOTIFY_APPID_")}
+
 if 'GOTIFY_PROTOCOL' not in os.environ:
     websocket_protocol = 'wss'
 else:
@@ -25,7 +30,20 @@ def on_message(ws, message):
         pushover_prio = "1"
     elif msg['priority'] > 7:
         pushover_prio = "2"
-    ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey)
+
+    # Fetch appid in gotify message
+    appid_string=str(msg["appid"])
+
+    # Check if GOTIFY_APPID_XX has been set with a pushover app token
+    gotify_appid="GOTIFY_APPID_" + appid_string
+    pushover_token = appid_vars.get(gotify_appid)
+    
+    print(pushover_token)
+
+    if pushover_token is not None:
+        ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey, api_token=pushover_token)
+    else:
+        ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey)
 
 def on_error(ws, error):
     print(error)
