@@ -38,8 +38,6 @@ def on_message(ws, message):
     gotify_appid="GOTIFY_APPID_" + appid_string
     pushover_token = appid_vars.get(gotify_appid)
     
-    print(pushover_token)
-
     if pushover_token is not None:
         ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey, api_token=pushover_token)
     else:
