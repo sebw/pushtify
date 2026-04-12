@@ -36,14 +36,7 @@ docker run --name pushtify \
   ghcr.io/sebw/pushtify:latest
 ```
 
-```bash
-podman run --name pushtify \
-  -e GOTIFY_TOKEN=zzz \
-  -e GOTIFY_HOST=gotify.example.org \
-  -e GOTIFY_PROTOCOL=https \
-  -e PUSHOVER_USERKEY=xxx \
-  ghcr.io/sebw/pushtify:latest
-```
+Replace `docker` with `podman` if you run Podman.
 
 If `GOTIFY_PROTOCOL` is not defined, HTTPS is assumed.
 
