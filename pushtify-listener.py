@@ -31,6 +31,9 @@ def on_message(ws, message):
     elif msg['priority'] > 7:
         pushover_prio = "2"
 
+    if os.environ['PUSHTIFY_DEBUG']:
+        print(msg)
+
     # Fetch appid in gotify message
     appid_string=str(msg["appid"])
 
@@ -39,8 +42,10 @@ def on_message(ws, message):
     pushover_token = appid_vars.get(gotify_appid)
     
     if pushover_token is not None:
+        print("Found matching app ID " + appid_string + " > sending to Pushover app")
         ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey, api_token=pushover_token)
     else:
+        print("Found no matching app ID > sending to Pushover main stream")
         ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey)
 
 def on_error(ws, error):

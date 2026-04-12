@@ -47,6 +47,8 @@ podman run --name pushtify \
 
 If `GOTIFY_PROTOCOL` is not defined, HTTPS is assumed.
 
+You can pass `PUSHTIFY_DEBUG=true` if you want to display the incoming messages.
+
 ## Mapping Gotify Apps to Pushover Apps
 
 By default with the example above, all Gotify messages will be forwarded to the "main" Pushover messages stream.
@@ -67,6 +69,7 @@ docker run --name pushtify \
   -e GOTIFY_HOST=gotify.example.org \
   -e GOTIFY_PROTOCOL=https \
   -e PUSHOVER_USERKEY=xxx \
+  -e PUSHTIFY_DEBUG=true \
   -e GOTIFY_APPID_55=your_pushover_api_token \
   -e GOTIFY_APPID_12=your_other_pushover_api_token \
   ghcr.io/sebw/pushtify:latest
