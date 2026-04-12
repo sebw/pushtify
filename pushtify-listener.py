@@ -2,6 +2,11 @@ import websocket
 import ntfy
 import json
 import os
+import logging
+import sys
+
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 pushover_userkey = os.environ['PUSHOVER_USERKEY']
 gotify_host = os.environ['GOTIFY_HOST']
@@ -32,7 +37,7 @@ def on_message(ws, message):
         pushover_prio = "2"
 
     if os.environ['PUSHTIFY_DEBUG']:
-        print(msg)
+        logger.debug(msg)
 
     # Fetch appid in gotify message
     appid_string=str(msg["appid"])
@@ -42,20 +47,20 @@ def on_message(ws, message):
     pushover_token = appid_vars.get(gotify_appid)
     
     if pushover_token is not None:
-        print("Found matching app ID " + appid_string + " > sending to Pushover app")
+        logger.debug("Found matching app ID " + appid_string + " > sending to Pushover app")
         ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey, api_token=pushover_token)
     else:
-        print("Found no matching app ID > sending to Pushover main stream")
+        logger.debug("Found no matching app ID > sending to Pushover main stream")
         ntfy.notify(msg['message'],msg['title'], priority=pushover_prio, backend='pushover', user_key=pushover_userkey)
 
 def on_error(ws, error):
     print(error)
 
 def on_close(ws, close_status_code, close_msg):
-    print("### closed connection ###")
+    logger.debug("### closed connection ###")
 
 def on_open(ws):
-    print("### opening connection ###")
+    logger.debug("### opening connection ###")
 
 if __name__ == "__main__":
     wsapp = websocket.WebSocketApp(str(websocket_protocol) + "://" + str(gotify_host) + "/stream", header={"X-Gotify-Key": str(gotify_token)},
